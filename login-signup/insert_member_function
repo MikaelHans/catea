@@ -1,0 +1,22 @@
+CREATE OR REPLACE FUNCTION insert_member 
+(_email CHARACTER VARYING,
+ _pass CHARACTER VARYING, 
+ _firstname CHARACTER VARYING, 
+ _lastname CHARACTER VARYING) 
+RETURNS boolean AS $$
+DECLARE tmp int; BEGIN
+SELECT COUNT(*) INTO tmp
+FROM catea_member
+WHERE email = _email; IF tmp <= 0 THEN
+    INSERT INTO catea_member (email, password, first_name, last_name, member_since)
+    VALUES (_email,
+            _pass,
+            _firstname,
+            _lastname,
+            now());
+        RETURN true;
+     ELSE 
+        RETURN false; 
+     END IF; 
+END;
+$$ LANGUAGE plpgsql;
