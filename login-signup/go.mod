@@ -1,4 +1,4 @@
-module github.com/MikaelHans/catea
+module github.com/MikaelHans/catea/login-signup
 
 go 1.20
 

@@ -1,4 +1,4 @@
-module github.com/MikaelHans/catea/session
+module github.com/MikaelHans/catea
 
 go 1.19
 
