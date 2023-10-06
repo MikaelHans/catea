@@ -4,7 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"time"
+	"github.com/MikaelHans/catea/session/pkg/structs"
 	"github.com/go-redis/redis/v8"
+    "github.com/MikaelHans/catea"
 )
 
 func ConnectToRedisClient() *redis.Client{
@@ -13,21 +15,21 @@ func ConnectToRedisClient() *redis.Client{
         Password: "", // no password set
         DB:		  0,  // use default DB
     })
-
+    
     return client
 }
 
-func createSession(userID string, sessid string) (*Session, error) {
-
+func CreateSession(userID string, sessid string) (*structs.Session, error) {
+    
     client := ConnectToRedisClient()
-    sessionID := sessid // You need to implement this function
-    session := &Session{
+    sessionID := sessid 
+    session := &structs.Session{
         ID:     sessionID,
         UserID: userID,
     }
 
     // Store the session data in Redis
-    err := storeSessionData(client, session)
+    err := StoreSessionData(client, session)
     if err != nil {
         return nil, err
     }
@@ -35,7 +37,7 @@ func createSession(userID string, sessid string) (*Session, error) {
     return session, nil
 }
 
-func storeSessionData(client *redis.Client, session *Session) error {
+func StoreSessionData(client *redis.Client, session *structs.Session) error {
     // Serialize the session data (e.g., to JSON)
     ctx := context.Background()
     sessionData, err := json.Marshal(session)
