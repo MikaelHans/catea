@@ -1,55 +1,42 @@
-package main
+package session
 
 import (
 	"context"
 	"encoding/json"
 	"time"
-	"github.com/MikaelHans/catea/session/pkg/structs"
+	// sessionstructs "github.com/MikaelHans/catea/session/pkg/structs"
 	"github.com/go-redis/redis/v8"
-    "github.com/MikaelHans/catea"
+    loginsignupstructs"github.com/MikaelHans/catea/login-signup/pkg/structs"
 )
 
-func ConnectToRedisClient() *redis.Client{
+func connectToRedisClient() *redis.Client{
     client := redis.NewClient(&redis.Options{
         Addr:	  "localhost:8800",
         Password: "", // no password set
         DB:		  0,  // use default DB
     })
-    
     return client
 }
 
-func CreateSession(userID string, sessid string) (*structs.Session, error) {
-    
-    client := ConnectToRedisClient()
-    sessionID := sessid 
-    session := &structs.Session{
-        ID:     sessionID,
-        UserID: userID,
-    }
+// func CreateSession(memberData loginsignupstructs.Member, token string, ctx context.Context) (error) {
+//     client := connectToRedisClient()
+//     // Store the session data in Redis
+//     err := StoreSessionData(client, memberData, token, ctx)
+//     if err != nil {
+//         return err
+//     }
+//     return nil
+// }
 
-    // Store the session data in Redis
-    err := StoreSessionData(client, session)
-    if err != nil {
-        return nil, err
-    }
-
-    return session, nil
-}
-
-func StoreSessionData(client *redis.Client, session *structs.Session) error {
-    // Serialize the session data (e.g., to JSON)
-    ctx := context.Background()
-    sessionData, err := json.Marshal(session)
+func StoreSessionData(memberdata loginsignupstructs.Member, token string, ctx context.Context) error {
+    client := connectToRedisClient()
+    sessionData, err := json.Marshal(memberdata)
     if err != nil {
         return err
     }
-
-    // Store the session data in Redis with a TTL (time-to-live)
-    err = client.Set(ctx, session.ID, sessionData, time.Hour).Err()
+    err = client.Set(ctx, token, sessionData, time.Hour).Err()
     if err != nil {
         return err
     }
-
     return nil
 }

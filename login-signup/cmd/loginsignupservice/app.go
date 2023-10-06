@@ -1,4 +1,4 @@
-package main
+package loginsignupservice
 
 import (
 	"github.com/MikaelHans/catea/login-signup/internal/login"
@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+func Run() {
 	r := gin.Default()
 	r.POST("/signup", func(c *gin.Context) {
 		signup.SignUp(c)

@@ -3,8 +3,10 @@ package login
 import (
 	"fmt"
 	"net/http"
-	"github.com/MikaelHans/catea/login-signup/pkg/util"
+
 	"github.com/MikaelHans/catea/login-signup/pkg/structs"
+	"github.com/MikaelHans/catea/login-signup/pkg/util"
+	"github.com/MikaelHans/catea/session/cmd/session"
 	"github.com/gin-gonic/gin"
 )
 
@@ -67,6 +69,7 @@ func Login(c *gin.Context) {
 	}
 	c.JSON(http.StatusAccepted, responseData)
 	//INITIATE REDIS SESSION////////////////////////////////////////////////////
+	session.StoreSessionData(member_data, token, c)
+
 	return
-	
 }
