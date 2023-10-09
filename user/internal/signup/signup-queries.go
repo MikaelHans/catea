@@ -2,8 +2,9 @@ package signup
 
 import (
 	"database/sql"
-	"github.com/MikaelHans/catea/login-signup/pkg/util"
-	"github.com/MikaelHans/catea/login-signup/pkg/structs"
+
+	"github.com/MikaelHans/catea/user/pkg/structs"
+	"github.com/MikaelHans/catea/user/pkg/util"
 )
 
 func InsertIntoMember(newMember structs.Member) (*sql.Rows, error) {
@@ -19,5 +20,3 @@ func InsertIntoMember(newMember structs.Member) (*sql.Rows, error) {
 	db.Close()
 	return rows, err
 }
-
-

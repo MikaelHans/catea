@@ -4,8 +4,8 @@ import (
 	_ "fmt"
 	"net/http"
 
-	"github.com/MikaelHans/catea/login-signup/pkg/structs"
-	"github.com/MikaelHans/catea/login-signup/pkg/util"
+	"github.com/MikaelHans/catea/user/pkg/structs"
+	"github.com/MikaelHans/catea/user/pkg/util"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,7 +17,7 @@ func SignUp(c *gin.Context) {
 	}
 	//ENCRYPT MEMBER PASSWORD//////////////////////////////////////////////////
 	encrypted_pass, err := util.EncryptString(data.Pass)
-	if err != nil{
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"msg": err.Error(),
 		})
@@ -52,8 +52,6 @@ func SignUp(c *gin.Context) {
 	})
 	return
 }
-
-
 
 // func add_member(newmember Member) (*sql.Rows, error) {
 // 	rows, err := InsertIntoMember(newmember)

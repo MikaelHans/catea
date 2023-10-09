@@ -4,9 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"time"
+
 	// sessionstructs "github.com/MikaelHans/catea/session/pkg/structs"
+	// "github.com/MikaelHans/catea/login-signup/pkg/structs"
+	"github.com/MikaelHans/catea/session-management/pkg/structs"
 	"github.com/go-redis/redis/v8"
-    loginsignupstructs"github.com/MikaelHans/catea/login-signup/pkg/structs"
 )
 
 func connectToRedisClient() *redis.Client{
@@ -28,7 +30,7 @@ func connectToRedisClient() *redis.Client{
 //     return nil
 // }
 
-func StoreSessionData(memberdata loginsignupstructs.Member, token string, ctx context.Context) error {
+func StoreSessionData(memberdata structs.Member, token string, ctx context.Context) error {
     client := connectToRedisClient()
     sessionData, err := json.Marshal(memberdata)
     if err != nil {

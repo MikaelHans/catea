@@ -1,8 +1,10 @@
 package login
+
 import (
 	"database/sql"
-	"github.com/MikaelHans/catea/login-signup/pkg/util"
-	"github.com/MikaelHans/catea/login-signup/pkg/structs"
+
+	"github.com/MikaelHans/catea/user/pkg/structs"
+	"github.com/MikaelHans/catea/user/pkg/util"
 )
 func GetMemberWithLoginInfo(logininfo structs.LoginInfo) (*sql.Rows, error) {
 	db, err := util.GetDBConnection()
