@@ -5,9 +5,9 @@ import (
 	"flag"
 	"log"
 	"time"
-	"github.com/MikaelHans/catea/session-management/internal/session"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"github.com/MikaelHans/catea/session-management/pkg/session"
 )
 
 var (
@@ -23,14 +23,14 @@ func main() {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	c := session.NewSessionManagementClient()
+	c := session.NewSessionManagementClient(conn)
 
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: *name})
+	r, err := c.GetSessionInfo(ctx, &session.SessionID{sessionid: "asd"})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
-	log.Printf("Greeting: %s", r.GetMessage())
+	// log.Printf("Greeting: %s", r.GetMessage())
 }

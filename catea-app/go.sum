@@ -1,5 +1,5 @@
-github.com/MikaelHans/catea/session-management v0.0.0-20231010144257-b596aef4cbd0 h1:h2aH9vF4/mtouOpHsW0MxVdBAvBgk0x/1uIw4xLL4lI=
-github.com/MikaelHans/catea/session-management v0.0.0-20231010144257-b596aef4cbd0/go.mod h1:J8qSZCf5QRgF/r+9pNf8v72nS1CP/uLlUO8EfNMG9ZE=
+github.com/MikaelHans/catea/session-management v0.0.0-20231010152218-06b05fdcf85d h1:+08Xr4h0V/aW9qzHkCEQscVVKgyjCRXHFYk6pdFRtwg=
+github.com/MikaelHans/catea/session-management v0.0.0-20231010152218-06b05fdcf85d/go.mod h1:J8qSZCf5QRgF/r+9pNf8v72nS1CP/uLlUO8EfNMG9ZE=
 github.com/cespare/xxhash/v2 v2.2.0 h1:DC2CZ1Ep5Y4k3ZQ899DldepgrayRUGE6BBZ/cd9Cj44=
 github.com/cespare/xxhash/v2 v2.2.0/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
 github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f h1:lO4WD4F/rVNCu3HqELle0jiPLLBs70cWOduZpkS1E78=

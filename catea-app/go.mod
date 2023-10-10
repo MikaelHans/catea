@@ -3,7 +3,7 @@ module github.com/MikaelHans/catea/catea-app
 go 1.19
 
 require (
-	github.com/MikaelHans/catea/session-management v0.0.0-20231010144257-b596aef4cbd0
+	github.com/MikaelHans/catea/session-management v0.0.0-20231010152218-06b05fdcf85d
 	google.golang.org/grpc v1.58.2
 )
 

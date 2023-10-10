@@ -3,18 +3,18 @@ package session;
 option go_package = "./session";
 
 message SessionInfo{
-    string email = 1;
-    string firstname = 2;
-    string lastname = 3;
-    string membersince = 4;
+    string Email = 1;
+    string Firstname = 2;
+    string Lastname = 3;
+    string Membersince = 4;
 }
 
 message SessionID{
-    string sessionid = 1;
+    string Sessionid = 1;
 }
 
 message Temp{
-    string data = 1;
+    string Data = 1;
 }
 
 service SessionManagement{
