@@ -7,30 +7,32 @@ import (
 
 	repo "github.com/MikaelHans/catea/session-management/internal/repository"
 	"github.com/MikaelHans/catea/session-management/pkg/structs"
-	"github.com/MikaelHans/catea/session/cmd/session"
 )
 
-type Server struct{
-    session.UnimplementedSessionManagementServiceServer
+type Server struct {
+	UnimplementedSessionManagementServer
 }
-func (s *Server)GetSessionInfo(ctx context.Context, sessionID *SessionID) (string, error){
-    client := repo.ConnectToRedisClient()
-    memberData, err := client.Get(ctx, sessionID.GetSessionid()).Result()
-    if err != nil {
-        return memberData, err
-    }
-    return memberData, err
+
+func (s *Server) GetSessionInfo(ctx context.Context, sessionID *SessionID) (*Temp, error) {
+	client := repo.ConnectToRedisClient()
+	data, err := client.Get(ctx, sessionID.GetSessionid()).Result()
+    var tmp Temp   
+	if err != nil {
+        tmp.Data = data
+		return &tmp, err
+	}
+	return &tmp, err
 }
 
 func storeSessionDataToRedis(memberdata structs.Member, token string, ctx context.Context) error {
-    client := repo.ConnectToRedisClient()
-    sessionData, err := json.Marshal(memberdata)
-    if err != nil {
-        return err
-    }
-    err = client.Set(ctx, token, sessionData, time.Hour).Err()
-    if err != nil {
-        return err
-    }
-    return nil
+	client := repo.ConnectToRedisClient()
+	sessionData, err := json.Marshal(memberdata)
+	if err != nil {
+		return err
+	}
+	err = client.Set(ctx, token, sessionData, time.Hour).Err()
+	if err != nil {
+		return err
+	}
+	return nil
 }

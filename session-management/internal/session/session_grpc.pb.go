@@ -18,87 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// SessionManagementServiceClient is the client API for SessionManagementService service.
+// SessionManagementClient is the client API for SessionManagement service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type SessionManagementServiceClient interface {
-	GetSessionInfo(ctx context.Context, in *SessionID, opts ...grpc.CallOption) (*SessionInfo, error)
+type SessionManagementClient interface {
+	GetSessionInfo(ctx context.Context, in *SessionID, opts ...grpc.CallOption) (*Temp, error)
 }
 
-type sessionManagementServiceClient struct {
+type sessionManagementClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewSessionManagementServiceClient(cc grpc.ClientConnInterface) SessionManagementServiceClient {
-	return &sessionManagementServiceClient{cc}
+func NewSessionManagementClient(cc grpc.ClientConnInterface) SessionManagementClient {
+	return &sessionManagementClient{cc}
 }
 
-func (c *sessionManagementServiceClient) GetSessionInfo(ctx context.Context, in *SessionID, opts ...grpc.CallOption) (*SessionInfo, error) {
-	out := new(SessionInfo)
-	err := c.cc.Invoke(ctx, "/session.SessionManagementService/GetSessionInfo", in, out, opts...)
+func (c *sessionManagementClient) GetSessionInfo(ctx context.Context, in *SessionID, opts ...grpc.CallOption) (*Temp, error) {
+	out := new(Temp)
+	err := c.cc.Invoke(ctx, "/session.SessionManagement/GetSessionInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// SessionManagementServiceServer is the server API for SessionManagementService service.
-// All implementations must embed UnimplementedSessionManagementServiceServer
+// SessionManagementServer is the server API for SessionManagement service.
+// All implementations must embed UnimplementedSessionManagementServer
 // for forward compatibility
-type SessionManagementServiceServer interface {
-	GetSessionInfo(context.Context, *SessionID) (*SessionInfo, error)
-	mustEmbedUnimplementedSessionManagementServiceServer()
+type SessionManagementServer interface {
+	GetSessionInfo(context.Context, *SessionID) (*Temp, error)
+	mustEmbedUnimplementedSessionManagementServer()
 }
 
-// UnimplementedSessionManagementServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedSessionManagementServiceServer struct {
+// UnimplementedSessionManagementServer must be embedded to have forward compatible implementations.
+type UnimplementedSessionManagementServer struct {
 }
 
-func (UnimplementedSessionManagementServiceServer) GetSessionInfo(context.Context, *SessionID) (*SessionInfo, error) {
+func (UnimplementedSessionManagementServer) GetSessionInfo(context.Context, *SessionID) (*Temp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSessionInfo not implemented")
 }
-func (UnimplementedSessionManagementServiceServer) mustEmbedUnimplementedSessionManagementServiceServer() {
-}
+func (UnimplementedSessionManagementServer) mustEmbedUnimplementedSessionManagementServer() {}
 
-// UnsafeSessionManagementServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to SessionManagementServiceServer will
+// UnsafeSessionManagementServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SessionManagementServer will
 // result in compilation errors.
-type UnsafeSessionManagementServiceServer interface {
-	mustEmbedUnimplementedSessionManagementServiceServer()
+type UnsafeSessionManagementServer interface {
+	mustEmbedUnimplementedSessionManagementServer()
 }
 
-func RegisterSessionManagementServiceServer(s grpc.ServiceRegistrar, srv SessionManagementServiceServer) {
-	s.RegisterService(&SessionManagementService_ServiceDesc, srv)
+func RegisterSessionManagementServer(s grpc.ServiceRegistrar, srv SessionManagementServer) {
+	s.RegisterService(&SessionManagement_ServiceDesc, srv)
 }
 
-func _SessionManagementService_GetSessionInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SessionManagement_GetSessionInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SessionID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SessionManagementServiceServer).GetSessionInfo(ctx, in)
+		return srv.(SessionManagementServer).GetSessionInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/session.SessionManagementService/GetSessionInfo",
+		FullMethod: "/session.SessionManagement/GetSessionInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SessionManagementServiceServer).GetSessionInfo(ctx, req.(*SessionID))
+		return srv.(SessionManagementServer).GetSessionInfo(ctx, req.(*SessionID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// SessionManagementService_ServiceDesc is the grpc.ServiceDesc for SessionManagementService service.
+// SessionManagement_ServiceDesc is the grpc.ServiceDesc for SessionManagement service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var SessionManagementService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "session.SessionManagementService",
-	HandlerType: (*SessionManagementServiceServer)(nil),
+var SessionManagement_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "session.SessionManagement",
+	HandlerType: (*SessionManagementServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetSessionInfo",
-			Handler:    _SessionManagementService_GetSessionInfo_Handler,
+			Handler:    _SessionManagement_GetSessionInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
