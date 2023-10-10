@@ -22,7 +22,6 @@ func main() {
 	server := grpc.NewServer()
 	s := session.Server{}
 	session.RegisterSessionManagementServer(server, &s)
-
 	log.Printf("server listening at %v", lis.Addr())
 	if err := server.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
