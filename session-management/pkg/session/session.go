@@ -24,6 +24,19 @@ func (s *Server) GetSessionInfo(ctx context.Context, sessionID *SessionID) (*Tem
 	return &tmp, err
 }
 
+func (s *Server) SetSession(ctx context.Context, sessionData *SessionData)(*None, error){
+	client := repo.ConnectToRedisClient()
+	data, err := json.Marshal(sessionData)
+	if err != nil {
+		return &None{}, err
+	}
+	err = client.Set(ctx, sessionData.SessionID.Sessionid, data, time.Hour).Err()
+	if err != nil {
+		return &None{}, err
+	}
+	return &None{}, nil
+}
+
 func storeSessionDataToRedis(memberdata structs.Member, token string, ctx context.Context) error {
 	client := repo.ConnectToRedisClient()
 	sessionData, err := json.Marshal(memberdata)

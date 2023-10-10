@@ -20,89 +20,18 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type SessionInfo struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Email       string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
-	Firstname   string `protobuf:"bytes,2,opt,name=firstname,proto3" json:"firstname,omitempty"`
-	Lastname    string `protobuf:"bytes,3,opt,name=lastname,proto3" json:"lastname,omitempty"`
-	Membersince string `protobuf:"bytes,4,opt,name=membersince,proto3" json:"membersince,omitempty"`
-}
-
-func (x *SessionInfo) Reset() {
-	*x = SessionInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_pkg_session_session_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SessionInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SessionInfo) ProtoMessage() {}
-
-func (x *SessionInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_pkg_session_session_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SessionInfo.ProtoReflect.Descriptor instead.
-func (*SessionInfo) Descriptor() ([]byte, []int) {
-	return file_pkg_session_session_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *SessionInfo) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
-
-func (x *SessionInfo) GetFirstname() string {
-	if x != nil {
-		return x.Firstname
-	}
-	return ""
-}
-
-func (x *SessionInfo) GetLastname() string {
-	if x != nil {
-		return x.Lastname
-	}
-	return ""
-}
-
-func (x *SessionInfo) GetMembersince() string {
-	if x != nil {
-		return x.Membersince
-	}
-	return ""
-}
-
 type SessionID struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Sessionid string `protobuf:"bytes,1,opt,name=sessionid,proto3" json:"sessionid,omitempty"`
+	Sessionid string `protobuf:"bytes,1,opt,name=Sessionid,proto3" json:"Sessionid,omitempty"`
 }
 
 func (x *SessionID) Reset() {
 	*x = SessionID{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pkg_session_session_proto_msgTypes[1]
+		mi := &file_pkg_session_session_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -115,7 +44,7 @@ func (x *SessionID) String() string {
 func (*SessionID) ProtoMessage() {}
 
 func (x *SessionID) ProtoReflect() protoreflect.Message {
-	mi := &file_pkg_session_session_proto_msgTypes[1]
+	mi := &file_pkg_session_session_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -128,7 +57,7 @@ func (x *SessionID) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SessionID.ProtoReflect.Descriptor instead.
 func (*SessionID) Descriptor() ([]byte, []int) {
-	return file_pkg_session_session_proto_rawDescGZIP(), []int{1}
+	return file_pkg_session_session_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *SessionID) GetSessionid() string {
@@ -138,18 +67,135 @@ func (x *SessionID) GetSessionid() string {
 	return ""
 }
 
+type SessionData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	SessionID   *SessionID `protobuf:"bytes,1,opt,name=sessionID,proto3" json:"sessionID,omitempty"`
+	Email       string     `protobuf:"bytes,2,opt,name=Email,proto3" json:"Email,omitempty"`
+	Firstname   string     `protobuf:"bytes,3,opt,name=Firstname,proto3" json:"Firstname,omitempty"`
+	Lastname    string     `protobuf:"bytes,4,opt,name=Lastname,proto3" json:"Lastname,omitempty"`
+	Membersince string     `protobuf:"bytes,5,opt,name=Membersince,proto3" json:"Membersince,omitempty"`
+}
+
+func (x *SessionData) Reset() {
+	*x = SessionData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_session_session_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SessionData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SessionData) ProtoMessage() {}
+
+func (x *SessionData) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_session_session_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SessionData.ProtoReflect.Descriptor instead.
+func (*SessionData) Descriptor() ([]byte, []int) {
+	return file_pkg_session_session_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *SessionData) GetSessionID() *SessionID {
+	if x != nil {
+		return x.SessionID
+	}
+	return nil
+}
+
+func (x *SessionData) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *SessionData) GetFirstname() string {
+	if x != nil {
+		return x.Firstname
+	}
+	return ""
+}
+
+func (x *SessionData) GetLastname() string {
+	if x != nil {
+		return x.Lastname
+	}
+	return ""
+}
+
+func (x *SessionData) GetMembersince() string {
+	if x != nil {
+		return x.Membersince
+	}
+	return ""
+}
+
+type None struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *None) Reset() {
+	*x = None{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_session_session_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *None) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*None) ProtoMessage() {}
+
+func (x *None) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_session_session_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use None.ProtoReflect.Descriptor instead.
+func (*None) Descriptor() ([]byte, []int) {
+	return file_pkg_session_session_proto_rawDescGZIP(), []int{2}
+}
+
 type Temp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Data string `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	Data string `protobuf:"bytes,1,opt,name=Data,proto3" json:"Data,omitempty"`
 }
 
 func (x *Temp) Reset() {
 	*x = Temp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pkg_session_session_proto_msgTypes[2]
+		mi := &file_pkg_session_session_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -162,7 +208,7 @@ func (x *Temp) String() string {
 func (*Temp) ProtoMessage() {}
 
 func (x *Temp) ProtoReflect() protoreflect.Message {
-	mi := &file_pkg_session_session_proto_msgTypes[2]
+	mi := &file_pkg_session_session_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -175,7 +221,7 @@ func (x *Temp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Temp.ProtoReflect.Descriptor instead.
 func (*Temp) Descriptor() ([]byte, []int) {
-	return file_pkg_session_session_proto_rawDescGZIP(), []int{2}
+	return file_pkg_session_session_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *Temp) GetData() string {
@@ -190,24 +236,31 @@ var File_pkg_session_session_proto protoreflect.FileDescriptor
 var file_pkg_session_session_proto_rawDesc = []byte{
 	0x0a, 0x19, 0x70, 0x6b, 0x67, 0x2f, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x2f, 0x73, 0x65,
 	0x73, 0x73, 0x69, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x07, 0x73, 0x65, 0x73,
-	0x73, 0x69, 0x6f, 0x6e, 0x22, 0x7f, 0x0a, 0x0b, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49,
-	0x6e, 0x66, 0x6f, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1c, 0x0a, 0x09, 0x66, 0x69, 0x72,
-	0x73, 0x74, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x66, 0x69,
-	0x72, 0x73, 0x74, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x6c, 0x61, 0x73, 0x74, 0x6e,
-	0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6c, 0x61, 0x73, 0x74, 0x6e,
-	0x61, 0x6d, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x73, 0x69, 0x6e,
-	0x63, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72,
-	0x73, 0x69, 0x6e, 0x63, 0x65, 0x22, 0x29, 0x0a, 0x09, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e,
-	0x49, 0x44, 0x12, 0x1c, 0x0a, 0x09, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x69, 0x64, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x69, 0x64,
-	0x22, 0x1a, 0x0a, 0x04, 0x54, 0x65, 0x6d, 0x70, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x32, 0x4a, 0x0a, 0x11,
-	0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x6d, 0x65, 0x6e,
-	0x74, 0x12, 0x35, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49,
-	0x6e, 0x66, 0x6f, 0x12, 0x12, 0x2e, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x65,
-	0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x1a, 0x0d, 0x2e, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f,
-	0x6e, 0x2e, 0x54, 0x65, 0x6d, 0x70, 0x22, 0x00, 0x42, 0x0b, 0x5a, 0x09, 0x2e, 0x2f, 0x73, 0x65,
+	0x73, 0x69, 0x6f, 0x6e, 0x22, 0x29, 0x0a, 0x09, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49,
+	0x44, 0x12, 0x1c, 0x0a, 0x09, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x69, 0x64, 0x22,
+	0xb1, 0x01, 0x0a, 0x0b, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x74, 0x61, 0x12,
+	0x30, 0x0a, 0x09, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x12, 0x2e, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x65, 0x73,
+	0x73, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x52, 0x09, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49,
+	0x44, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x05, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1c, 0x0a, 0x09, 0x46, 0x69, 0x72, 0x73, 0x74,
+	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x46, 0x69, 0x72, 0x73,
+	0x74, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x4c, 0x61, 0x73, 0x74, 0x6e, 0x61, 0x6d,
+	0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x4c, 0x61, 0x73, 0x74, 0x6e, 0x61, 0x6d,
+	0x65, 0x12, 0x20, 0x0a, 0x0b, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x73, 0x69, 0x6e, 0x63, 0x65,
+	0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x73, 0x69,
+	0x6e, 0x63, 0x65, 0x22, 0x06, 0x0a, 0x04, 0x4e, 0x6f, 0x6e, 0x65, 0x22, 0x1a, 0x0a, 0x04, 0x54,
+	0x65, 0x6d, 0x70, 0x12, 0x12, 0x0a, 0x04, 0x44, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x04, 0x44, 0x61, 0x74, 0x61, 0x32, 0x7f, 0x0a, 0x11, 0x53, 0x65, 0x73, 0x73, 0x69,
+	0x6f, 0x6e, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x35, 0x0a, 0x0e,
+	0x47, 0x65, 0x74, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x12,
+	0x2e, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e,
+	0x49, 0x44, 0x1a, 0x0d, 0x2e, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x2e, 0x54, 0x65, 0x6d,
+	0x70, 0x22, 0x00, 0x12, 0x33, 0x0a, 0x0a, 0x53, 0x65, 0x74, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f,
+	0x6e, 0x12, 0x14, 0x2e, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x65, 0x73, 0x73,
+	0x69, 0x6f, 0x6e, 0x44, 0x61, 0x74, 0x61, 0x1a, 0x0d, 0x2e, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f,
+	0x6e, 0x2e, 0x4e, 0x6f, 0x6e, 0x65, 0x22, 0x00, 0x42, 0x0b, 0x5a, 0x09, 0x2e, 0x2f, 0x73, 0x65,
 	0x73, 0x73, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
@@ -223,20 +276,24 @@ func file_pkg_session_session_proto_rawDescGZIP() []byte {
 	return file_pkg_session_session_proto_rawDescData
 }
 
-var file_pkg_session_session_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_pkg_session_session_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_pkg_session_session_proto_goTypes = []interface{}{
-	(*SessionInfo)(nil), // 0: session.SessionInfo
-	(*SessionID)(nil),   // 1: session.SessionID
-	(*Temp)(nil),        // 2: session.Temp
+	(*SessionID)(nil),   // 0: session.SessionID
+	(*SessionData)(nil), // 1: session.SessionData
+	(*None)(nil),        // 2: session.None
+	(*Temp)(nil),        // 3: session.Temp
 }
 var file_pkg_session_session_proto_depIdxs = []int32{
-	1, // 0: session.SessionManagement.GetSessionInfo:input_type -> session.SessionID
-	2, // 1: session.SessionManagement.GetSessionInfo:output_type -> session.Temp
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0, // 0: session.SessionData.sessionID:type_name -> session.SessionID
+	0, // 1: session.SessionManagement.GetSessionInfo:input_type -> session.SessionID
+	1, // 2: session.SessionManagement.SetSession:input_type -> session.SessionData
+	3, // 3: session.SessionManagement.GetSessionInfo:output_type -> session.Temp
+	2, // 4: session.SessionManagement.SetSession:output_type -> session.None
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_pkg_session_session_proto_init() }
@@ -246,18 +303,6 @@ func file_pkg_session_session_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_pkg_session_session_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SessionInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_pkg_session_session_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SessionID); i {
 			case 0:
 				return &v.state
@@ -269,7 +314,31 @@ func file_pkg_session_session_proto_init() {
 				return nil
 			}
 		}
+		file_pkg_session_session_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SessionData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 		file_pkg_session_session_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*None); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_session_session_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Temp); i {
 			case 0:
 				return &v.state
@@ -288,7 +357,7 @@ func file_pkg_session_session_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_pkg_session_session_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -28,9 +28,9 @@ func main() {
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.GetSessionInfo(ctx, &session.SessionID{sessionid: "asd"})
+	r, err := c.GetSessionInfo(ctx, &session.SessionID{Sessionid: "asd"})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
-	// log.Printf("Greeting: %s", r.GetMessage())
+	log.Printf("Greeting: %s", r.GetData())
 }

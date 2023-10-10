@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SessionManagementClient interface {
 	GetSessionInfo(ctx context.Context, in *SessionID, opts ...grpc.CallOption) (*Temp, error)
+	SetSession(ctx context.Context, in *SessionData, opts ...grpc.CallOption) (*None, error)
 }
 
 type sessionManagementClient struct {
@@ -42,11 +43,21 @@ func (c *sessionManagementClient) GetSessionInfo(ctx context.Context, in *Sessio
 	return out, nil
 }
 
+func (c *sessionManagementClient) SetSession(ctx context.Context, in *SessionData, opts ...grpc.CallOption) (*None, error) {
+	out := new(None)
+	err := c.cc.Invoke(ctx, "/session.SessionManagement/SetSession", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SessionManagementServer is the server API for SessionManagement service.
 // All implementations must embed UnimplementedSessionManagementServer
 // for forward compatibility
 type SessionManagementServer interface {
 	GetSessionInfo(context.Context, *SessionID) (*Temp, error)
+	SetSession(context.Context, *SessionData) (*None, error)
 	mustEmbedUnimplementedSessionManagementServer()
 }
 
@@ -56,6 +67,9 @@ type UnimplementedSessionManagementServer struct {
 
 func (UnimplementedSessionManagementServer) GetSessionInfo(context.Context, *SessionID) (*Temp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSessionInfo not implemented")
+}
+func (UnimplementedSessionManagementServer) SetSession(context.Context, *SessionData) (*None, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetSession not implemented")
 }
 func (UnimplementedSessionManagementServer) mustEmbedUnimplementedSessionManagementServer() {}
 
@@ -88,6 +102,24 @@ func _SessionManagement_GetSessionInfo_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SessionManagement_SetSession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SessionData)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SessionManagementServer).SetSession(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/session.SessionManagement/SetSession",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SessionManagementServer).SetSession(ctx, req.(*SessionData))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SessionManagement_ServiceDesc is the grpc.ServiceDesc for SessionManagement service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +130,10 @@ var SessionManagement_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSessionInfo",
 			Handler:    _SessionManagement_GetSessionInfo_Handler,
+		},
+		{
+			MethodName: "SetSession",
+			Handler:    _SessionManagement_SetSession_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -2,15 +2,20 @@ syntax = "proto3";
 package session;
 option go_package = "./session";
 
-message SessionInfo{
-    string Email = 1;
-    string Firstname = 2;
-    string Lastname = 3;
-    string Membersince = 4;
-}
-
 message SessionID{
     string Sessionid = 1;
+}
+
+message SessionData{
+    SessionID sessionID = 1;
+    string Email = 2;
+    string Firstname = 3;
+    string Lastname = 4;
+    string Membersince = 5;
+}
+
+message None{
+
 }
 
 message Temp{
@@ -19,4 +24,5 @@ message Temp{
 
 service SessionManagement{
     rpc GetSessionInfo(SessionID) returns (Temp){}
+    rpc SetSession(SessionData) returns (None){}
 }
