@@ -6,7 +6,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/MikaelHans/catea/session-management/internal/session"
+	"github.com/MikaelHans/catea/session-management/pkg/session"
 	"google.golang.org/grpc"
 )
 
