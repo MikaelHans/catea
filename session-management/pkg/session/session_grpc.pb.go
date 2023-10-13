@@ -22,8 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SessionManagementClient interface {
-	GetSessionInfo(ctx context.Context, in *SessionID, opts ...grpc.CallOption) (*Temp, error)
-	SetSession(ctx context.Context, in *SessionData, opts ...grpc.CallOption) (*None, error)
+	GetSessionInfo(ctx context.Context, in *SessionID, opts ...grpc.CallOption) (*String, error)
+	SetSession(ctx context.Context, in *SessionData, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type sessionManagementClient struct {
@@ -34,8 +34,8 @@ func NewSessionManagementClient(cc grpc.ClientConnInterface) SessionManagementCl
 	return &sessionManagementClient{cc}
 }
 
-func (c *sessionManagementClient) GetSessionInfo(ctx context.Context, in *SessionID, opts ...grpc.CallOption) (*Temp, error) {
-	out := new(Temp)
+func (c *sessionManagementClient) GetSessionInfo(ctx context.Context, in *SessionID, opts ...grpc.CallOption) (*String, error) {
+	out := new(String)
 	err := c.cc.Invoke(ctx, "/session.SessionManagement/GetSessionInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -43,8 +43,8 @@ func (c *sessionManagementClient) GetSessionInfo(ctx context.Context, in *Sessio
 	return out, nil
 }
 
-func (c *sessionManagementClient) SetSession(ctx context.Context, in *SessionData, opts ...grpc.CallOption) (*None, error) {
-	out := new(None)
+func (c *sessionManagementClient) SetSession(ctx context.Context, in *SessionData, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/session.SessionManagement/SetSession", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -56,8 +56,8 @@ func (c *sessionManagementClient) SetSession(ctx context.Context, in *SessionDat
 // All implementations must embed UnimplementedSessionManagementServer
 // for forward compatibility
 type SessionManagementServer interface {
-	GetSessionInfo(context.Context, *SessionID) (*Temp, error)
-	SetSession(context.Context, *SessionData) (*None, error)
+	GetSessionInfo(context.Context, *SessionID) (*String, error)
+	SetSession(context.Context, *SessionData) (*Empty, error)
 	mustEmbedUnimplementedSessionManagementServer()
 }
 
@@ -65,10 +65,10 @@ type SessionManagementServer interface {
 type UnimplementedSessionManagementServer struct {
 }
 
-func (UnimplementedSessionManagementServer) GetSessionInfo(context.Context, *SessionID) (*Temp, error) {
+func (UnimplementedSessionManagementServer) GetSessionInfo(context.Context, *SessionID) (*String, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSessionInfo not implemented")
 }
-func (UnimplementedSessionManagementServer) SetSession(context.Context, *SessionData) (*None, error) {
+func (UnimplementedSessionManagementServer) SetSession(context.Context, *SessionData) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetSession not implemented")
 }
 func (UnimplementedSessionManagementServer) mustEmbedUnimplementedSessionManagementServer() {}

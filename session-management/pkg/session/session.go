@@ -13,10 +13,10 @@ type Server struct {
 	UnimplementedSessionManagementServer
 }
 
-func (s *Server) GetSessionInfo(ctx context.Context, sessionID *SessionID) (*Temp, error) {
+func (s *Server) GetSessionInfo(ctx context.Context, sessionID *SessionID) (*String, error) {
 	client := repo.ConnectToRedisClient()
 	data, err := client.Get(ctx, sessionID.GetSessionid()).Result()
-    var tmp Temp   
+    var tmp String   
 	if err != nil {
         tmp.Data = data
 		return &tmp, err
@@ -24,17 +24,17 @@ func (s *Server) GetSessionInfo(ctx context.Context, sessionID *SessionID) (*Tem
 	return &tmp, err
 }
 
-func (s *Server) SetSession(ctx context.Context, sessionData *SessionData)(*None, error){
+func (s *Server) SetSession(ctx context.Context, sessionData *SessionData)(*Empty ,error){
 	client := repo.ConnectToRedisClient()
 	data, err := json.Marshal(sessionData)
 	if err != nil {
-		return &None{}, err
+		return &Empty{},err
 	}
 	err = client.Set(ctx, sessionData.SessionID.Sessionid, data, time.Hour).Err()
 	if err != nil {
-		return &None{}, err
+		return &Empty{}, err
 	}
-	return &None{}, nil
+	return &Empty{}, nil
 }
 
 func storeSessionDataToRedis(memberdata structs.Member, token string, ctx context.Context) error {

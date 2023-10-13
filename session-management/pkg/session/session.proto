@@ -14,15 +14,15 @@ message SessionData{
     string Membersince = 5;
 }
 
-message None{
+message Empty{
 
 }
 
-message Temp{
+message String{
     string Data = 1;
 }
 
 service SessionManagement{
-    rpc GetSessionInfo(SessionID) returns (Temp){}
-    rpc SetSession(SessionData) returns (None){}
+    rpc GetSessionInfo(SessionID) returns (String){}
+    rpc SetSession(SessionData) returns (Empty){}
 }

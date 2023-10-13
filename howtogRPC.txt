@@ -1,0 +1,106 @@
+how to create gRPC
+
+1.  create .proto file
+
+2.  define types and functions 
+    ex:
+    syntax = "proto3";
+    package session;
+    option go_package = "./session";
+
+    message SessionID{
+        string Sessionid = 1;
+    }
+
+    message SessionData{
+        SessionID sessionID = 1;
+        string Email = 2;
+        string Firstname = 3;
+        string Lastname = 4;
+        string Membersince = 5;
+    }
+
+    message None{
+
+    }
+
+    message Temp{
+        string Data = 1;
+    }
+
+    service SessionManagement{
+        rpc GetSessionInfo(SessionID) returns (Temp){}
+        rpc SetSession(SessionData) returns (None){}
+    }
+
+3.  generate pb files with protoc
+    ex:
+    protoc --go_out=. --go_opt=paths=source_relative     --go-grpc_out=. --go-grpc_opt=paths=source_relative     pkg/session/session.proto
+
+4.  implement defined functions in a .go with the same package
+    ex:
+    func (s *Server) GetSessionInfo(ctx context.Context, sessionID *SessionID) (*Temp, error) {
+        client := repo.ConnectToRedisClient()
+        data, err := client.Get(ctx, sessionID.GetSessionid()).Result()
+        var tmp Temp   
+        if err != nil {
+            tmp.Data = data
+            return &tmp, err
+        }
+        return &tmp, err
+    }
+
+    func (s *Server) SetSession(ctx context.Context, sessionData *SessionData)(*None, error){
+        client := repo.ConnectToRedisClient()
+        data, err := json.Marshal(sessionData)
+        if err != nil {
+            return &None{}, err
+        }
+        err = client.Set(ctx, sessionData.SessionID.Sessionid, data, time.Hour).Err()
+        if err != nil {
+            return &None{}, err
+        }
+        return &None{}, nil
+    }
+
+5.  create a gRPC server 
+    ex:
+    in main.go, package main
+    server := grpc.NewServer()
+
+6.  create a server struct (empty struct idk why):
+    in session.go, package session :
+    type Server struct {
+	    UnimplementedSessionManagementServer
+    }
+
+7.  register server using generated func ex:
+    session.RegisterSessionManagementServer(server, &s)
+
+9.  in client, go get the module that u have created and pushed to github
+
+10. if module already imported, run go update <<module>>
+
+11. create client ex:
+    flag.Parse()
+	// Set up a connection to the server
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+	c := session.NewSessionManagementClient(conn)
+	// Contact the server and print out its response.
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+12. use the RPC func, autocomplete should nyaut ex:
+    data, err := c.SetSession(ctx, &session.SessionData{
+		SessionID: &session.SessionID{Sessionid:  "asd"}, 
+		Email: "mikael.hans30@gmail.com",
+		Firstname: "Jonathan",
+		Lastname: "Cahyo",
+		Membersince: "2022-05-07 17:39:05",})
+
+13. enjoy
+	
