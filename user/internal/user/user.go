@@ -4,10 +4,11 @@ import (
 	"context"
 	"fmt"
 
+
 	pb "github.com/MikaelHans/catea/user/api"
-	"github.com/MikaelHans/catea/user/internal/user/rpcs/session"
 	"github.com/MikaelHans/catea/user/internal/user/repository/login"
 	"github.com/MikaelHans/catea/user/internal/user/repository/signup"
+	"github.com/MikaelHans/catea/user/internal/user/rpcs/session"
 	"github.com/MikaelHans/catea/user/pkg/structs"
 	"github.com/MikaelHans/catea/user/pkg/util"
 	"google.golang.org/grpc/codes"
@@ -102,7 +103,7 @@ func (s *Server) SignUp(ctx context.Context, signupcredentials *pb.SignupCredent
 		return &pb.SignUpResponse{}, status.Error(codes.Internal, err.Error())
 	}
 	if result == false {
-		return &pb.SignUpResponse{}, status.Error(codes.AlreadyExists, err.Error())
+		return &pb.SignUpResponse{}, status.Error(codes.AlreadyExists, "email already used by another account")
 	}
 	return &pb.SignUpResponse{Message: "OK"}, nil
 }
