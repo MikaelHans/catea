@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.6.1
-// source: pkg/session/session.proto
+// source: api/session.proto
 
-package session
+package api
 
 import (
 	context "context"
@@ -137,5 +137,5 @@ var SessionManagement_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "pkg/session/session.proto",
+	Metadata: "api/session.proto",
 }

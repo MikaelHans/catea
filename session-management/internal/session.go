@@ -7,16 +7,17 @@ import (
 
 	repo "github.com/MikaelHans/catea/session-management/internal/repository"
 	"github.com/MikaelHans/catea/session-management/pkg/structs"
+	pb "github.com/MikaelHans/catea/session-management/api"
 )
 
 type Server struct {
-	UnimplementedSessionManagementServer
+	pb.UnimplementedSessionManagementServer
 }
 
-func (s *Server) GetSessionInfo(ctx context.Context, sessionID *SessionID) (*String, error) {
+func (s *Server) GetSessionInfo(ctx context.Context, sessionID *pb.SessionID) (*pb.String, error) {
 	client := repo.ConnectToRedisClient()
 	data, err := client.Get(ctx, sessionID.GetSessionid()).Result()
-    var tmp String   
+    var tmp pb.String   
 	if err != nil {
         tmp.Data = data
 		return &tmp, err
@@ -24,17 +25,17 @@ func (s *Server) GetSessionInfo(ctx context.Context, sessionID *SessionID) (*Str
 	return &tmp, err
 }
 
-func (s *Server) SetSession(ctx context.Context, sessionData *SessionData)(*Empty ,error){
+func (s *Server) SetSession(ctx context.Context, sessionData *pb.SessionData)(*pb.Empty ,error){
 	client := repo.ConnectToRedisClient()
 	data, err := json.Marshal(sessionData)
 	if err != nil {
-		return &Empty{},err
+		return &pb.Empty{},err
 	}
 	err = client.Set(ctx, sessionData.SessionID.Sessionid, data, time.Hour).Err()
 	if err != nil {
-		return &Empty{}, err
+		return &pb.Empty{}, err
 	}
-	return &Empty{}, nil
+	return &pb.Empty{}, nil
 }
 
 func storeSessionDataToRedis(memberdata structs.Member, token string, ctx context.Context) error {

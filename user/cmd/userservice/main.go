@@ -5,13 +5,15 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"github.com/MikaelHans/catea/session-management/internal"
-	pb "github.com/MikaelHans/catea/session-management/api"
+
+	"github.com/MikaelHans/catea/user/api"
+	"github.com/MikaelHans/catea/user/internal/user"
+
 	"google.golang.org/grpc"
 )
 
 var (
-	port = flag.Int("port", 6601, "The server port")
+	port = flag.Int("port", 6602, "The server port")
 )
 
 func main() {
@@ -20,8 +22,8 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	server := grpc.NewServer()
-	s := session.Server{}
-	pb.RegisterSessionManagementServer(server, &s)
+	s := user.Server{}
+	api.RegisterUserServiceServer(server, &s)
 	log.Printf("server listening at %v", lis.Addr())
 	if err := server.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

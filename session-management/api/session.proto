@@ -1,6 +1,6 @@
 syntax = "proto3";
 package session;
-option go_package = "./session";
+option go_package = "./api";
 
 message SessionID{
     string Sessionid = 1;
