@@ -10,6 +10,7 @@ import (
 	"github.com/MikaelHans/catea/user/internal/user"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 var (
@@ -25,6 +26,7 @@ func main() {
 	s := user.Server{}
 	api.RegisterUserServiceServer(server, &s)
 	log.Printf("server listening at %v", lis.Addr())
+	reflection.Register(server)
 	if err := server.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

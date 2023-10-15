@@ -46,7 +46,7 @@ func (s *Server) Login(ctx context.Context, logincredentials *pb.LoginCredential
 		var response structs.LoginResponse;
 		response.Token = ""
 		response.Error = status.Error(codes.Unauthenticated, "Invalid username or password")
-		return &pb.LoginResponse{Token: ""}, status.Error(codes.Unauthenticated, "Invalid username or password")
+		return &pb.LoginResponse{Token: ""}, status.Error(codes.InvalidArgument, "Invalid username or password")
 	}
 	/*WHEN SUCCESS RETURN TOKEN AND MSG:SUCCESS*/
 	token, err := util.GenerateJWT(member_data.Email)
@@ -63,13 +63,19 @@ func (s *Server) Login(ctx context.Context, logincredentials *pb.LoginCredential
 	// c.JSON(http.StatusAccepted, responseData)
 	//INITIATE REDIS SESSION////////////////////////////////////////////////////
 	// session.StoreSessionData(member_data, token, c)
-	session.SetSession(token, structs.Member{
+	data, err := session.SetSession(token, structs.Member{
 		Email: member_data.Email,
 		Firstname: member_data.Firstname,
 		Lastname: member_data.Lastname,
 		Member_Since: member_data.Member_Since,
 	})
-	return &pb.LoginResponse{Token: token}, err
+
+	//variable dump, currently i dont know the best way to handle empty responses from gRPC
+	if err != nil{
+		return &pb.LoginResponse{Token: data}, err
+	}
+
+	return &pb.LoginResponse{Token: token}, nil
 }
 
 func (s *Server) SignUp(ctx context.Context, signupcredentials *pb.SignupCredentials)(*pb.SignUpResponse, error){
