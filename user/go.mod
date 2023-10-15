@@ -3,7 +3,7 @@ module github.com/MikaelHans/catea/user
 go 1.19
 
 require (
-	github.com/MikaelHans/catea/session-management v0.0.0-20231013131043-598b21278ff7
+	github.com/MikaelHans/catea/session-management v0.0.0-20231015143543-8f330b21e468
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/lib/pq v1.10.9
 	golang.org/x/crypto v0.14.0
@@ -12,9 +12,6 @@ require (
 )
 
 require (
-	github.com/cespare/xxhash/v2 v2.2.0 // indirect
-	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
-	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	golang.org/x/net v0.12.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect

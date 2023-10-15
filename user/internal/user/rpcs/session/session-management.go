@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/MikaelHans/catea/session-management/pkg/session"
+	session "github.com/MikaelHans/catea/session-management/api"
 	"github.com/MikaelHans/catea/user/pkg/structs"
 )
 
