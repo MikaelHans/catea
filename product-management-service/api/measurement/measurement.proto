@@ -1,0 +1,20 @@
+syntax = "proto3";
+package measurement;
+option go_package = "./api";
+
+message Measurement{
+    string Name = 1;
+}
+
+message Measurements{
+    repeated Measurement Measurements = 1;
+}
+
+message None{
+
+}
+
+service MeasurementService{
+    rpc GetAllMeasurements(None) returns (Measurements){};
+}
+
