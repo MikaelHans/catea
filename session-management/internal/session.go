@@ -38,7 +38,7 @@ func (s *Server) SetSession(ctx context.Context, sessionData *pb.SessionData)(*p
 	return &pb.Empty{}, nil
 }
 
-func storeSessionDataToRedis(memberdata structs.Member, token string, ctx context.Context) error {
+func StoreSessionDataToRedis(memberdata structs.Member, token string, ctx context.Context) error {
 	client := repo.ConnectToRedisClient()
 	sessionData, err := json.Marshal(memberdata)
 	if err != nil {
